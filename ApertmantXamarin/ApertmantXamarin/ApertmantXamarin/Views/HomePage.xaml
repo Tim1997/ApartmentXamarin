@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ApertmantXamarin.ViewModels"
+             Title="{Binding Title}"
+             x:Class="ApertmantXamarin.Views.HomePage">
+    <ContentPage.BindingContext>
+        <vm:HomeViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <Grid x:Name="gMain" ColumnDefinitions="*,*,*" VerticalOptions="Start" HeightRequest="100"
+              ColumnSpacing="0">
+            <Frame Grid.Column="0" IsClippedToBounds="True" HasShadow="False" BorderColor="{StaticResource Green}"
+                   Padding="10" Margin="0">
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Center" HorizontalOptions="Center">
+                    <Image Source="plus_black" 
+                           HeightRequest="20" WidthRequest="20"/>
+                    <Label Text="New Property" Margin="0,-5,0,0" TextColor="Black"/>
+                </StackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+                                        Command="{Binding Path=BindingContext.AddCommand, Source={x:Reference Name=gMain}}"
+                                        CommandParameter="{Binding .}" />
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <Frame Grid.Column="1" IsClippedToBounds="True" HasShadow="False" BorderColor="{StaticResource Green}"
+                   Padding="10"  Margin="0">
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Center" HorizontalOptions="Center">
+                    <Image Source="list_black" 
+                           HeightRequest="20" WidthRequest="20"/>
+                    <Label Text="Property List" Margin="0,-5,0,0" TextColor="Black"/>
+                </StackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+                                        Command="{Binding Path=BindingContext.ListCommand, Source={x:Reference Name=gMain}}"
+                                        CommandParameter="{Binding .}" />
+                </Frame.GestureRecognizers>
+            </Frame>
+
+            <Frame Grid.Column="2" IsClippedToBounds="True" HasShadow="False" BorderColor="{StaticResource Green}"
+                   Padding="10"  Margin="0">
+                <StackLayout Orientation="Vertical"
+                             VerticalOptions="Center" HorizontalOptions="Center">
+                    <Image Source="info_black" 
+                           HeightRequest="20" WidthRequest="20"/>
+                    <Label Text="About" Margin="0,-5,0,0" TextColor="Black"/>
+                </StackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer
+                                        Command="{Binding Path=BindingContext.InfoCommand, Source={x:Reference Name=gMain}}"
+                                        CommandParameter="{Binding .}" />
+                </Frame.GestureRecognizers>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

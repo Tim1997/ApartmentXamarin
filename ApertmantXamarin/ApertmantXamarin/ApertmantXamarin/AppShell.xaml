@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Shell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:ApertmantXamarin.Views"
+       Title="ApertmantXamarin"
+       
+       FlyoutHeaderBehavior="CollapseOnScroll"
+       x:Name="shell"
+       
+       x:Class="ApertmantXamarin.AppShell">
+
+    <!--
+        The overall app visual hierarchy is defined here, along with navigation.
+    
+        https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/
+    -->
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Green}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="{StaticResource LightGray}" />
+                <Setter Property="Shell.UnselectedColor" Value="{StaticResource LightGray}" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource Green}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{StaticResource LightGray}"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+            </Style>
+            <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" BasedOn="{StaticResource BaseStyle}" />
+
+            <!--
+            Default Styles for all Flyout Items
+            https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyoutitem-and-menuitem-style-classes
+            -->
+            <Style Class="FlyoutItemLabelStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White"></Setter>
+                <Setter Property="FontSize" Value="23"></Setter>
+                <Setter Property="Margin" Value="-50,0,0,0"></Setter>
+            </Style>
+            <Style Class="FlyoutItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="{x:OnPlatform UWP=Transparent, iOS=White}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="Black" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Black" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <!--
+            Custom Style you can apply to any Flyout Item
+            -->
+            <!--<Style Class="MenuItemLayoutStyle" TargetType="Layout" ApplyToDerivedTypes="True">
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.TextColor" Value="{StaticResource Primary}" />
+                                    <Setter TargetName="FlyoutItemLabel" Property="Label.FontSize" Value="16" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>-->
+        </ResourceDictionary>
+    </Shell.Resources>
+    <!-- 
+        When the Flyout is visible this defines the content to display in the flyout.
+        FlyoutDisplayOptions="AsMultipleItems" will create a separate flyout item for each child element    
+        https://docs.microsoft.com/dotnet/api/xamarin.forms.shellgroupitem.flyoutdisplayoptions?view=xamarin-forms
+    -->
+    <FlyoutItem FlyoutDisplayOptions="AsMultipleItems" Icon="{Binding .}">
+        <Tab Title="Home" Icon="home.png">
+            <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
+        </Tab>
+        <Tab Title="New Property" Icon="plus.png">
+            <ShellContent Route="NewProperty" ContentTemplate="{DataTemplate local:NewProperty}" />
+        </Tab>
+        <Tab Title="Property List" Icon="list.png">
+            <ShellContent Route="PropertyList" ContentTemplate="{DataTemplate local:PropertyList}" />
+        </Tab>
+        <Tab Title="About" Icon="info.png">
+            <ShellContent Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
+        </Tab>
+    </FlyoutItem>
+
+    <!-- When the Flyout is visible this will be a menu item you can tie a click behavior to  -->
+    <!--<MenuItem Text="Logout" StyleClass="MenuItemLayoutStyle" Clicked="OnMenuItemClicked">
+    </MenuItem>-->
+    <!--<ShellItem>
+        <ShellSection >
+            <ShellContent  FlyoutIcon="20" Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
+        </ShellSection>
+        <ShellSection >
+            <ShellContent  FlyoutIcon="20" Route="NewPropertyPage" ContentTemplate="{DataTemplate local:NewProperty}" />
+        </ShellSection>
+        <ShellSection >
+            <ShellContent  FlyoutIcon="20" Route="PropertyListPage" ContentTemplate="{DataTemplate local:PropertyList}" />
+        </ShellSection>
+        <ShellSection >
+            <ShellContent  FlyoutIcon="20" Route="AboutPagePage" ContentTemplate="{DataTemplate local:AboutPage}" />
+        </ShellSection>
+    </ShellItem>-->
+
+    <!--// This header appears at the top of the Flyout.
+    // https://docs.microsoft.com/xamarin/xamarin-forms/app-fundamentals/shell/flyout#flyout-header-->
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <StackLayout HeightRequest="200" Orientation="Vertical">
+                <Label Text="Apartment" TextTransform="Uppercase"
+                       TextColor="Black" FontSize="30"
+                       FontAttributes="Bold" Margin="0,10,0,0"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center" />
+                <Label Text="Sample" TextTransform="Uppercase"
+                       TextColor="Black" FontSize="30"
+                       FontAttributes="Bold" Margin="0,-10,0,0"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center" />
+                
+                <Image Aspect="Fill"
+                       WidthRequest="150" HeightRequest="100"
+                       Source="logo" HorizontalOptions="Center"/>
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
+    <!--<Shell.FlyoutContentTemplate>
+        <DataTemplate>
+            <Grid>
+                <Label Text="{Binding Title}"
+                               TextColor="White"
+                               FontSize="Large" />
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutContentTemplate>-->
+
+    <Shell.FlyoutFooterTemplate>
+        <DataTemplate>
+            <StackLayout TranslationY="-300">
+                <Label Text="Contact:"
+                   TextColor="Black" FontSize="20"
+                   FontAttributes="Bold" Margin="10,0"
+                   HorizontalOptions="Start" />
+                <StackLayout Orientation="Horizontal" >
+                    <Label Text="Author: " Margin="10,0"
+                       TextColor="Black" FontSize="15"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                    <Label Text="Thái Nguyễn Hoàng Long"
+                       TextColor="Gray" FontSize="15"
+                       FontAttributes="Bold" Margin="-15,0,0,0"
+                       HorizontalOptions="Center" VerticalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Email: " Margin="10,0"
+                       TextColor="Black" FontSize="15"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+                    <Label Text="abc@gmail.com" FontSize="15"
+                       TextColor="Blue" Margin="-15,0,0,0"
+                       FontAttributes="Bold" TextDecorations="Underline"
+                       HorizontalOptions="Center" />
+                </StackLayout>
+            </StackLayout>
+        </DataTemplate>
+    </Shell.FlyoutFooterTemplate>
+</Shell>

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             Visual="Material"
+             Title="{Binding Title}"
+             xmlns:vm="clr-namespace:ApertmantXamarin.ViewModels"
+             x:Class="ApertmantXamarin.Views.FilterPage">
+    <ContentPage.BindingContext>
+        <vm:FilterViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Margin="15,25">
+            <StackLayout>
+                <Label Text="Username" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
+                <Editor Placeholder="Enter user name here..." PlaceholderColor="{StaticResource Green}" 
+                        TextColor="{StaticResource LightGray}" Keyboard="Text" Text="{Binding FilterApartment.Username}"/>
+            </StackLayout>
+
+            <Grid  ColumnDefinitions="*,*">
+                <StackLayout>
+                    <Label Text="Phone" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
+                    <Editor Placeholder="Enter phone here..." PlaceholderColor="{StaticResource Green}" 
+                        TextColor="{StaticResource LightGray}" Keyboard="Telephone" Text="{Binding FilterApartment.Phone}"/>
+                </StackLayout>
+                <StackLayout Grid.Column="1">
+                    <Label Text="Room number" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
+                    <Editor Placeholder="Enter room number here..." PlaceholderColor="{StaticResource Green}" 
+                        TextColor="{StaticResource LightGray}" Keyboard="Numeric" MaxLength="3" Text="{Binding FilterApartment.RoomNumber}"/>
+                </StackLayout>
+            </Grid>
+
+            <StackLayout>
+                <Label Text="Apartment City" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
+                <Picker ItemsSource="{Binding Cities}" Title="Select City" TextColor="{StaticResource LightGray}" TitleColor="{StaticResource Green}"
+                    FontSize="18" SelectedIndex="{Binding Index}"/>
+            </StackLayout>
+
+            <Button BackgroundColor="{StaticResource Green}" TextColor="White"
+                    Text="Search" Command="{Binding SearchCommand}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

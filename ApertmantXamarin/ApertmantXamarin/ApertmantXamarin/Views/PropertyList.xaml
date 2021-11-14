@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:ApertmantXamarin.ViewModels"
+             xmlns:model="clr-namespace:ApertmantXamarin.Models"
+             Visual="Material"
+             Title="{Binding Title}"
+             x:Class="ApertmantXamarin.Views.PropertyList">
+    <ContentPage.BindingContext>
+        <vm:PropertyListViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout Margin="15,25">
+            <Grid ColumnDefinitions="*,auto,auto" VerticalOptions="Center">
+                <Editor Placeholder="Filter properties..." PlaceholderColor="{StaticResource Green}" HeightRequest="80"
+                    TextColor="{StaticResource LightGray}" Keyboard="Text" VerticalOptions="EndAndExpand"
+                        Text="{Binding FilterUsername}"/>
+                <ImageButton Grid.Column="1" Source="filter" BackgroundColor="{StaticResource Green}" 
+                             WidthRequest="30" HeightRequest="30" VerticalOptions="Center" Padding="5"
+                             Command="{Binding FilterCommand}"/>
+                <ImageButton Grid.Column="2" Source="reset" BackgroundColor="{StaticResource Green}" 
+                             WidthRequest="30" HeightRequest="30" VerticalOptions="Center"  Padding="5" 
+                             Command="{Binding LoadItemsCommand}"/>
+            </Grid>
+
+            <RefreshView Command="{Binding LoadItemsCommand}" Margin="0,10,0,0" IsRefreshing="{Binding IsBusy, Mode=TwoWay}">
+                <CollectionView x:Name="ItemsListView"
+                        ItemsSource="{Binding Apartments}"
+                        SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BorderColor="{StaticResource Green}" IsClippedToBounds="True" HasShadow="True"
+                                   CornerRadius="5" Padding="10,10">
+                                <StackLayout Padding="10" x:DataType="model:Item">
+                                    <Label Text="{Binding Username}" 
+                                    LineBreakMode="NoWrap" TextColor="{StaticResource Green}"
+                                    Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
+
+                                    <StackLayout Orientation="Horizontal" Margin="0,-5,0,0">
+                                        <Label Text="{Binding City, StringFormat='City: {0}'}" 
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        FontSize="12" />
+                                        <Label Text="{Binding Phone, StringFormat='Phone: {0}'}" 
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        FontSize="12" />
+                                        <Label Text="{Binding RoomNumber, StringFormat='Room: {0}'}" 
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        FontSize="12" />
+                                        <Label Text="{Binding DateHire, StringFormat='DateHire: {0:dd/MM/yyyy}'}" 
+                                        LineBreakMode="NoWrap"
+                                        Style="{DynamicResource ListItemDetailTextStyle}"
+                                        FontSize="12" />
+                                    </StackLayout>
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                        NumberOfTapsRequired="1"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PropertyListViewModel}}, Path=ItemTapped}"		
+                                        CommandParameter="{Binding .}">
+                                        </TapGestureRecognizer>
+                                    </StackLayout.GestureRecognizers>
+                                </StackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </RefreshView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
