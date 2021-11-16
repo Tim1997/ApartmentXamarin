@@ -1,5 +1,6 @@
 ﻿using ApertmantXamarin.Models;
 using ApertmantXamarin.Views;
+using Firebase.Database.Query;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -50,10 +51,31 @@ namespace ApertmantXamarin.ViewModels
             }
         }
         #endregion
-        #region Command
+
+        #region Command 
         public ICommand FilterCommand => new Command(async () =>
         {
             await Shell.Current.GoToAsync($"{nameof(FilterPage)}");
+        });
+
+        public ICommand RemoveItemCommand => new Command<Item>(async (aparment) =>
+        {
+            var result = await Shell.Current.DisplayActionSheet("Warning", "Cancel", "Yes", "Are you sure want remove item?");
+            if (result == "Yes")
+            {
+                try
+                {
+                    var item = (await FirebaseDatabase.Child("Apartments")
+                                        .OnceAsync<Item>()).Where(x => x.Object.Id == aparment.Id).FirstOrDefault();
+
+                    await FirebaseDatabase.Child("Apartments").Child(item?.Key).DeleteAsync();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine(ex.Message);
+                }
+
+            }
         });
 
         public ICommand LoadItemsCommand { get; set; }
@@ -63,7 +85,7 @@ namespace ApertmantXamarin.ViewModels
 
         public PropertyListViewModel()
         {
-            Title = "Property List";
+            Title = "Apartment List";
             IsBusy = true;
             Apartments = new ObservableCollection<Item>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadClassroomsCommand());

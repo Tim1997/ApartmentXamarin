@@ -13,57 +13,58 @@
         <converter:EnumDescriptionConverter x:Key="EnumConverter" />
     </ContentPage.Resources>
     <ContentPage.Content>
-        <StackLayout Margin="15,25">
-
-            <StackLayout>
-                <Label Text="Username" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
-                <Editor Placeholder="Enter user name here..." PlaceholderColor="{StaticResource Green}" 
+        <ScrollView>
+            <StackLayout Margin="15,25">
+                <StackLayout>
+                    <Label Text="Username *" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
+                    <Editor Placeholder="Enter user name here..." PlaceholderColor="{StaticResource Green}" 
                         TextColor="{StaticResource LightGray}" Keyboard="Text" Text="{Binding Apartment.Username}"/>
-            </StackLayout>
-            
-            <Grid  ColumnDefinitions="*,*">
-                <StackLayout>
-                    <Label Text="Phone" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
-                    <Editor Placeholder="Enter phone here..." PlaceholderColor="{StaticResource Green}" 
+                </StackLayout>
+
+                <Grid  ColumnDefinitions="*,*">
+                    <StackLayout>
+                        <Label Text="Phone *" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
+                        <Editor Placeholder="Enter phone here..." PlaceholderColor="{StaticResource Green}" 
                         TextColor="{StaticResource LightGray}" Keyboard="Telephone" Text="{Binding Apartment.Phone}"/>
-                </StackLayout>
-                <StackLayout Grid.Column="1">
-                    <Label Text="Room number" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
-                    <Editor Placeholder="Enter room number here..." PlaceholderColor="{StaticResource Green}" 
+                    </StackLayout>
+                    <StackLayout Grid.Column="1">
+                        <Label Text="Room number *" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
+                        <Editor Placeholder="Enter room number here..." PlaceholderColor="{StaticResource Green}" 
                         TextColor="{StaticResource LightGray}" Keyboard="Numeric" MaxLength="3" Text="{Binding Apartment.RoomNumber}"/>
-                </StackLayout>
-            </Grid>
+                    </StackLayout>
+                </Grid>
 
-            <Grid  ColumnDefinitions="*,*">
-                <StackLayout>
-                    <Label Text="Apartment City" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
-                    <Picker ItemsSource="{Binding Cities}" Title="Select City" TextColor="{StaticResource LightGray}" TitleColor="{StaticResource Green}"
+                <Grid  ColumnDefinitions="*,*">
+                    <StackLayout>
+                        <Label Text="Apartment City *" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
+                        <Picker ItemsSource="{Binding Cities}" Title="Select City" TextColor="{StaticResource LightGray}" TitleColor="{StaticResource Green}"
                     FontSize="18" SelectedIndex="{Binding Index}"/>
-                </StackLayout>
-                <StackLayout Grid.Column="1">
-                    <Label Text="Monthly Price" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
-                    <Editor Placeholder="Enter monthly price here..." PlaceholderColor="{StaticResource Green}" 
+                    </StackLayout>
+                    <StackLayout Grid.Column="1">
+                        <Label Text="Monthly Price *" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
+                        <Editor Placeholder="Enter monthly price here..." PlaceholderColor="{StaticResource Green}" 
                         TextColor="{StaticResource LightGray}" Keyboard="Numeric" Text="{Binding Apartment.Price}"/>
-                </StackLayout>
-            </Grid>
-            <Grid  ColumnDefinitions="*,*">
+                    </StackLayout>
+                </Grid>
+                <Grid  ColumnDefinitions="*,*">
+                    <StackLayout>
+                        <Label Text="Date of Hire *" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
+                        <DatePicker TextColor="{StaticResource LightGray}" Date="{Binding Apartment.DateHire}"/>
+                    </StackLayout>
+                    <StackLayout Grid.Column="1">
+                        <Label Text="Time of Hire" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
+                        <TimePicker TextColor="{StaticResource LightGray}" Format="HH:mm" Time="{Binding Apartment.TimeHire}"/>
+                    </StackLayout>
+                </Grid>
                 <StackLayout>
-                    <Label Text="Date of Hire" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
-                    <DatePicker TextColor="{StaticResource LightGray}" Date="{Binding Apartment.DateHire}"/>
-                </StackLayout>
-                <StackLayout Grid.Column="1">
-                    <Label Text="Time of Hire" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
-                    <TimePicker TextColor="{StaticResource LightGray}" Format="HH:mm" Time="{Binding Apartment.TimeHire}"/>
-                </StackLayout>
-            </Grid>
-            <StackLayout>
-                <Label Text="Note" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
-                <Editor Placeholder="Enter note here..." PlaceholderColor="{StaticResource Green}" 
+                    <Label Text="Note" FontSize="Subtitle" TextColor="{StaticResource Green}"/>
+                    <Editor Placeholder="Enter note here..." PlaceholderColor="{StaticResource Green}" 
                         TextColor="{StaticResource LightGray}" Text="{Binding Apartment.Note}" Keyboard="Text"/>
-            </StackLayout>
+                </StackLayout>
 
-            <Button BackgroundColor="{StaticResource Green}" TextColor="White"
+                <Button BackgroundColor="{StaticResource Green}" TextColor="White"
                     Text="Create Room" Command="{Binding CreateCommand}"/>
-        </StackLayout>
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>

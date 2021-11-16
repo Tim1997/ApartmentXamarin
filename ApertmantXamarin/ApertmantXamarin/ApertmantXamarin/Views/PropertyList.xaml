@@ -12,7 +12,7 @@
     <ContentPage.Content>
         <StackLayout Margin="15,25">
             <Grid ColumnDefinitions="*,auto,auto" VerticalOptions="Center">
-                <Editor Placeholder="Filter properties..." PlaceholderColor="{StaticResource Green}" HeightRequest="80"
+                <Editor Placeholder="Filter properties..." PlaceholderColor="{StaticResource Green}" HeightRequest="100"
                     TextColor="{StaticResource LightGray}" Keyboard="Text" VerticalOptions="EndAndExpand"
                         Text="{Binding FilterUsername}"/>
                 <ImageButton Grid.Column="1" Source="filter" BackgroundColor="{StaticResource Green}" 
@@ -36,28 +36,30 @@
                                     LineBreakMode="NoWrap" TextColor="{StaticResource Green}"
                                     Style="{DynamicResource ListItemTextStyle}" FontSize="16" />
 
-                                    <StackLayout Orientation="Horizontal" Margin="0,-5,0,0">
-                                        <Label Text="{Binding City, StringFormat='City: {0}'}" 
+                                    <ScrollView Orientation="Horizontal">
+                                        <StackLayout Orientation="Horizontal" Margin="0,0,0,5">
+                                            <Label Text="{Binding City, StringFormat='City: {0}'}" 
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemDetailTextStyle}"
                                         FontSize="12" />
-                                        <Label Text="{Binding Phone, StringFormat='Phone: {0}'}" 
+                                            <Label Text="{Binding Phone, StringFormat='Phone: {0}'}" 
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemDetailTextStyle}"
                                         FontSize="12" />
-                                        <Label Text="{Binding RoomNumber, StringFormat='Room: {0}'}" 
+                                            <Label Text="{Binding RoomNumber, StringFormat='Room: {0}'}" 
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemDetailTextStyle}"
                                         FontSize="12" />
-                                        <Label Text="{Binding DateHire, StringFormat='DateHire: {0:dd/MM/yyyy}'}" 
+                                            <Label Text="{Binding DateHire, StringFormat='DateHire: {0:dd/MM/yyyy}'}" 
                                         LineBreakMode="NoWrap"
                                         Style="{DynamicResource ListItemDetailTextStyle}"
                                         FontSize="12" />
-                                    </StackLayout>
+                                        </StackLayout>
+                                    </ScrollView>
                                     <StackLayout.GestureRecognizers>
                                         <TapGestureRecognizer 
-                                        NumberOfTapsRequired="1"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PropertyListViewModel}}, Path=ItemTapped}"		
+                                        NumberOfTapsRequired="2"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:PropertyListViewModel}}, Path=RemoveItemCommand}"		
                                         CommandParameter="{Binding .}">
                                         </TapGestureRecognizer>
                                     </StackLayout.GestureRecognizers>

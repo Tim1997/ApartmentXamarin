@@ -88,10 +88,10 @@
         <Tab Title="Home" Icon="home.png">
             <ShellContent Route="HomePage" ContentTemplate="{DataTemplate local:HomePage}" />
         </Tab>
-        <Tab Title="New Property" Icon="plus.png">
+        <Tab Title="New Apartment" Icon="plus.png">
             <ShellContent Route="NewProperty" ContentTemplate="{DataTemplate local:NewProperty}" />
         </Tab>
-        <Tab Title="Property List" Icon="list.png">
+        <Tab Title="Apartment List" Icon="list.png">
             <ShellContent Route="PropertyList" ContentTemplate="{DataTemplate local:PropertyList}" />
         </Tab>
         <Tab Title="About" Icon="info.png">
@@ -152,7 +152,7 @@
 
     <Shell.FlyoutFooterTemplate>
         <DataTemplate>
-            <StackLayout TranslationY="-300">
+            <StackLayout TranslationY="-150">
                 <Label Text="Contact:"
                    TextColor="Black" FontSize="20"
                    FontAttributes="Bold" Margin="10,0"

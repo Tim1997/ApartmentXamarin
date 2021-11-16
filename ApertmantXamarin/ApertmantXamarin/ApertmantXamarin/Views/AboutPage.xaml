@@ -10,8 +10,8 @@
         <vm:AboutViewModel />
     </ContentPage.BindingContext>
 
-    <ScrollView HorizontalOptions="Center">
-        <StackLayout Margin="0,40,0,0">
+    <ScrollView>
+        <StackLayout Margin="0,40,0,0" HorizontalOptions="Center">
             <Label Text="Apartment Sample" FontSize="Title" TextColor="{StaticResource Green}"
                TextTransform="Uppercase" FontAttributes="Bold" HorizontalOptions="Center"/>
             <Image Source="logo" Aspect="AspectFill" HorizontalOptions="Center"/>

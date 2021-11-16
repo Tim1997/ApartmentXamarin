@@ -36,6 +36,7 @@ namespace ApertmantXamarin.Models
     }
     public class Item
     {
+        public string Id { get; set; }
         public string Username { get; set; }
         public string Phone { get; set; }
         public City? City { get; set; }

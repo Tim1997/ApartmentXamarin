@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -39,23 +40,31 @@ namespace ApertmantXamarin.ViewModels
             }
             else
             {
-                Apartment.City = (City)Index;
-
-                var itemExist = (await FirebaseDatabase.Child("Apartments")
-                .OnceAsync<Item>()).FirstOrDefault(x => x.Object.RoomNumber == Apartment.RoomNumber
-                && x.Object.City == Apartment.City);
-                if (itemExist != null)
+                try
                 {
-                    await Shell.Current.DisplayAlert("Alert", "Room is booked", "Got it");
+                    Apartment.City = (City)Index;
+
+                    var itemExist = (await FirebaseDatabase.Child("Apartments")
+                    .OnceAsync<Item>()).FirstOrDefault(x => x.Object.RoomNumber == Apartment.RoomNumber
+                    && x.Object.City == Apartment.City);
+                    if (itemExist != null)
+                    {
+                        await Shell.Current.DisplayAlert("Alert", "Room is booked", "Got it");
+                    }
+                    else
+                    {
+                        Apartment.Id = Guid.NewGuid().ToString();
+                        await FirebaseDatabase.Child("Apartments")
+                        .PostAsync(Apartment);
+
+                        Index = -1;
+                        Apartment = new Item();
+                        await Shell.Current.DisplayAlert("Alert", "Create Apartment success", "Got it");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    await FirebaseDatabase.Child("Apartments")
-                    .PostAsync(Apartment);
-
-                    Index = -1;
-                    Apartment = new Item();
-                    await Shell.Current.DisplayAlert("Alert", "Create Apartment success", "Got it");
+                    Debug.WriteLine(ex.Message);
                 }
             }
         });
